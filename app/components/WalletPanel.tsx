@@ -12,7 +12,7 @@ export default function WalletPanel() {
       <div className="flex items-center justify-between mb-4">
         <h2 className="text-xl font-bold text-gray-800 dark:text-gray-100">Wallet</h2>
         <span className="text-2xl font-extrabold text-green-600 dark:text-green-400">
-          ${wallet.balance.toFixed(2)}
+          ${Number(wallet.balance).toLocaleString(undefined, { maximumFractionDigits: 2 })}
         </span>
       </div>
       <div>
@@ -37,7 +37,7 @@ export default function WalletPanel() {
                       : "text-red-600 font-semibold"
                   }
                 >
-                  {tx.type === "deposit" || tx.type === "payout" ? "+" : "-"}${tx.amount.toFixed(2)}
+                  {tx.type === "deposit" || tx.type === "payout" ? "+" : "-"}${Number(tx.amount).toLocaleString(undefined, { maximumFractionDigits: 2 })}
                 </span>
               </li>
             ))}

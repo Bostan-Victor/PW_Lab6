@@ -34,7 +34,7 @@ function DashboardSummary() {
         <span className="text-yellow-500 text-3xl mb-2">💰</span>
         <span className="text-gray-700 dark:text-gray-200 text-xs">Profit</span>
         <span className={`text-2xl font-bold ${totalProfit > 0 ? "text-green-600" : totalProfit < 0 ? "text-red-600" : ""}`}>
-          {totalProfit}
+          {Number(totalProfit).toLocaleString(undefined, { maximumFractionDigits: 2 })}
         </span>
       </div>
       <div className="col-span-2 sm:col-span-4 flex justify-center mt-2">
@@ -67,14 +67,22 @@ export default function HomePage() {
       </div>
       <main className="max-w-5xl mx-auto px-4 py-12">
         {/* Header */}
-        <header className="flex flex-col items-center mb-12">
-          <h1 className="text-5xl sm:text-6xl font-extrabold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-fuchsia-400 to-pink-400 drop-shadow-lg animate-glow">
-            Bet Tracker
-          </h1>
-          <p className="mt-4 text-lg text-gray-200/90 dark:text-gray-300/90 text-center max-w-2xl">
-            Track your bets, analyze your performance, and manage your wallet with style. <br />
-            <span className="text-blue-200">Stay on top of your game!</span>
-          </p>
+        <header className="flex flex-col sm:flex-row items-center justify-between mb-12">
+          <div className="flex flex-col items-center sm:items-start">
+            <h1 className="text-5xl sm:text-6xl font-extrabold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-fuchsia-400 to-pink-400 drop-shadow-lg animate-glow">
+              Bet Tracker
+            </h1>
+            <p className="mt-4 text-lg text-gray-200/90 dark:text-gray-300/90 text-center sm:text-left max-w-2xl">
+              Track your bets, analyze your performance, and manage your wallet with style. <br />
+              <span className="text-blue-200">Stay on top of your game!</span>
+            </p>
+          </div>
+          <Link
+            to="/dashboard"
+            className="mt-6 sm:mt-0 px-4 py-2 rounded-full bg-gradient-to-r from-blue-400 via-fuchsia-400 to-pink-400 text-white font-semibold shadow hover:scale-105 transition"
+          >
+            Dashboard
+          </Link>
         </header>
         {/* Dashboard Card */}
         <div className="mb-12">

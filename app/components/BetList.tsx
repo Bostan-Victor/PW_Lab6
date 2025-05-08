@@ -133,13 +133,13 @@ export default function BetList() {
                 </div>
                 <div className="flex flex-wrap gap-3 mb-2">
                   <span className="text-sm text-blue-900 dark:text-blue-200 font-medium">
-                    💵 {bet.amount}
+                    💵 {Number(bet.amount).toLocaleString(undefined, { maximumFractionDigits: 2 })}
                   </span>
                   <span className="text-sm text-fuchsia-900 dark:text-fuchsia-200 font-medium">
-                    🎯 {bet.odds}
+                    🎯 {Number(bet.odds).toLocaleString(undefined, { maximumFractionDigits: 2 })}
                   </span>
                   <span className="text-sm text-yellow-900 dark:text-yellow-200 font-medium">
-                    💸 {bet.payout}
+                    💸 {Number(bet.payout).toLocaleString(undefined, { maximumFractionDigits: 2 })}
                   </span>
                 </div>
                 <div className="mb-2">
@@ -153,7 +153,7 @@ export default function BetList() {
                         : "text-gray-700 dark:text-gray-300"
                     }
                   >
-                    {bet.profit}
+                    {Number(bet.profit).toLocaleString(undefined, { maximumFractionDigits: 2 })}
                   </span>
                 </div>
                 {bet.notes && (
