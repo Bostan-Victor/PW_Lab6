@@ -2,6 +2,8 @@ import React from "react";
 import { Link } from "react-router";
 import BetList from "../components/BetList";
 import { useAppState } from "../context/AppStateContext";
+import WalletPanel from "../components/WalletPanel";
+import WalletForm from "../components/WalletForm";
 
 function DashboardSummary() {
   const { state } = useAppState();
@@ -59,6 +61,9 @@ export default function HomePage() {
             <span className="text-blue-200">Stay on top of your game!</span>
           </p>
         </header>
+        {/* Wallet Panel and Form */}
+        <WalletPanel />
+        <WalletForm />
         {/* Dashboard Card */}
         <div className="mb-12">
           <DashboardSummary />

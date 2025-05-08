@@ -25,12 +25,108 @@ const initialState: State = {
 
 function reducer(state: State, action: Action): State {
   switch (action.type) {
-    case "SET_BETS":
-      return { ...state, bets: action.bets };
-    case "ADD_BET":
-      return { ...state, bets: [...state.bets, action.bet] };
-    case "DELETE_BET":
-      return { ...state, bets: state.bets.filter((b) => b.id !== action.id) };
+    case "SET_BETS": {
+      if (!state.wallet) return { ...state, bets: action.bets };
+      let updatedWallet = state.wallet;
+
+      action.bets.forEach((newBet) => {
+        const oldBet = state.bets.find((b) => b.id === newBet.id);
+        if (oldBet) {
+          let transactions = updatedWallet.transactions.filter(
+            (tx) => tx.betId !== newBet.id
+          );
+          let balance = updatedWallet.balance;
+
+          balance += oldBet.amount;
+          if (oldBet.outcome === "Won" || oldBet.outcome === "Draw") {
+            balance -= oldBet.payout;
+          }
+
+          const betTx: WalletTransaction = {
+            id: Math.random().toString(36).slice(2),
+            type: "bet",
+            amount: newBet.amount,
+            date: newBet.date,
+            betId: newBet.id,
+          };
+          transactions = [betTx, ...transactions];
+          balance -= newBet.amount;
+
+          if (newBet.outcome === "Won" || newBet.outcome === "Draw") {
+            const payoutTx: WalletTransaction = {
+              id: Math.random().toString(36).slice(2),
+              type: "payout",
+              amount: newBet.payout,
+              date: newBet.date,
+              betId: newBet.id,
+            };
+            transactions = [payoutTx, ...transactions];
+            balance += newBet.payout;
+          }
+
+          updatedWallet = { ...updatedWallet, balance, transactions };
+        }
+      });
+
+      return { ...state, bets: action.bets, wallet: updatedWallet };
+    }
+
+    case "ADD_BET": {
+      const newBets = [...state.bets, action.bet];
+      if (!state.wallet) return { ...state, bets: newBets };
+
+      const betTx: WalletTransaction = {
+        id: Math.random().toString(36).slice(2),
+        type: "bet",
+        amount: action.bet.amount,
+        date: action.bet.date,
+        betId: action.bet.id,
+      };
+      let transactions = [betTx, ...state.wallet.transactions];
+      let balance = state.wallet.balance - action.bet.amount;
+
+      if (action.bet.outcome === "Won" || action.bet.outcome === "Draw") {
+        const payoutTx: WalletTransaction = {
+          id: Math.random().toString(36).slice(2),
+          type: "payout",
+          amount: action.bet.payout,
+          date: action.bet.date,
+          betId: action.bet.id,
+        };
+        transactions = [payoutTx, ...transactions];
+        balance += action.bet.payout;
+      }
+
+      const updatedWallet: Wallet = {
+        ...state.wallet,
+        balance,
+        transactions,
+      };
+      return { ...state, bets: newBets, wallet: updatedWallet };
+    }
+
+    case "DELETE_BET": {
+        if (!state.wallet) return { ...state, bets: state.bets.filter((b) => b.id !== action.id) };
+        const betToDelete = state.bets.find((b) => b.id === action.id);
+        if (!betToDelete) {
+          return {
+            ...state,
+            bets: state.bets.filter((b) => b.id !== action.id),
+          };
+        }
+        const transactions = state.wallet.transactions.filter(
+          (tx) => tx.betId !== action.id
+        );
+        let balance = state.wallet.balance + Number(betToDelete.amount);
+        if (betToDelete.outcome === "Won" || betToDelete.outcome === "Draw") {
+          balance -= Number(betToDelete.payout);
+        }
+        return {
+          ...state,
+          bets: state.bets.filter((b) => b.id !== action.id),
+          wallet: { ...state.wallet, balance, transactions },
+        };
+      }
     case "SET_WALLET":
     case "UPDATE_WALLET":
       return { ...state, wallet: action.wallet };
