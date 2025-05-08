@@ -13,6 +13,7 @@ export default function BetList() {
   const [outcomeFilter, setOutcomeFilter] = useState("All");
   const [typeFilter, setTypeFilter] = useState("All");
   const [favoritesOnly, setFavoritesOnly] = useState(false);
+  const [search, setSearch] = useState("");
 
   async function handleDelete(id: string) {
     if (window.confirm("Are you sure you want to delete this bet?")) {
@@ -27,6 +28,18 @@ export default function BetList() {
     if (favoritesOnly && !bet.favorite) return false;
     if (outcomeFilter !== "All" && bet.outcome !== outcomeFilter) return false;
     if (typeFilter !== "All" && bet.type !== typeFilter) return false;
+    if (search.trim()) {
+      const s = search.trim().toLowerCase();
+      if (
+        !(bet.notes?.toLowerCase().includes(s) ||
+          bet.type.toLowerCase().includes(s) ||
+          bet.outcome.toLowerCase().includes(s) ||
+          bet.amount.toString().includes(s) ||
+          bet.odds.toString().includes(s))
+      ) {
+        return false;
+      }
+    }
     return true;
   });
 
@@ -66,6 +79,13 @@ export default function BetList() {
           />
           <span className="font-semibold text-sm">Favorites only</span>
         </label>
+        <input
+          type="text"
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          placeholder="Search bets..."
+          className="rounded px-3 py-2 border border-gray-300 dark:border-gray-700 bg-white/60 dark:bg-gray-800/60 focus:outline-none focus:ring-2 focus:ring-fuchsia-400 transition flex-1 min-w-[180px]"
+        />
       </div>
       {feedback && (
         <div className="p-2 rounded text-sm mb-4 bg-green-100 text-green-800 text-center shadow-lg">{feedback}</div>
