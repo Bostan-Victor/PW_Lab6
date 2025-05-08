@@ -1,6 +1,7 @@
 import React from "react";
 import { useAppState } from "../context/AppStateContext";
 import { Link } from "react-router";
+import ProfitOverTimeChart from "../components/ProfitOverTimeChart";
 
 export default function DashboardPage() {
   const { state } = useAppState();
@@ -106,6 +107,9 @@ export default function DashboardPage() {
             </span>
           </div>
         </div>
+      </div>
+      <div className="w-full max-w-3xl mt-12">
+        <ProfitOverTimeChart bets={bets} />
       </div>
       <style>
         {`
