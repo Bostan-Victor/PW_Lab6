@@ -52,3 +52,8 @@ export async function deleteById(storeName: string, id: string): Promise<void> {
     request.onerror = () => reject(request.error);
   });
 }
+
+export async function getMainWallet(): Promise<import("../types/Wallet").Wallet | null> {
+  const wallets = await getAll<import("../types/Wallet").Wallet>("wallet");
+  return wallets.length > 0 ? wallets[0] : null;
+}
