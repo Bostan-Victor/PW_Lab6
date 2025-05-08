@@ -1,4 +1,5 @@
 import { useAppState } from "../context/AppStateContext";
+import { Link } from "react-router";
 
 export default function BetList() {
   const { state } = useAppState();
@@ -12,6 +13,12 @@ export default function BetList() {
               <strong>{bet.type}</strong> | {bet.amount} @ {bet.odds} | {bet.outcome}
             </div>
             <div className="text-xs text-gray-500">{bet.date}</div>
+            <Link
+              to={`/edit-bet/${bet.id}`}
+              className="text-blue-600 underline text-sm"
+            >
+              Edit
+            </Link>
           </li>
         ))}
       </ul>
