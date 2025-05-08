@@ -61,6 +61,11 @@ export default function AddBetForm() {
     }
   }
 
+  function handleCancel(e: React.MouseEvent) {
+    e.preventDefault();
+    navigate("/");
+  }
+
   return (
     <form className="space-y-6" onSubmit={handleSubmit}>
       {feedback && (
@@ -163,12 +168,21 @@ export default function AddBetForm() {
         />
         <label className="font-semibold">Favorite</label>
       </div>
-      <button
-        type="submit"
-        className="w-full bg-gradient-to-r from-blue-500 via-fuchsia-500 to-pink-500 text-white px-4 py-2 rounded-lg font-semibold shadow-lg hover:scale-105 hover:shadow-2xl transition-all duration-200"
-      >
-        Add Bet
-      </button>
+      <div className="flex gap-4">
+        <button
+          type="submit"
+          className="w-full bg-gradient-to-r from-blue-500 via-fuchsia-500 to-pink-500 text-white px-4 py-2 rounded-lg font-semibold shadow-lg hover:scale-105 hover:shadow-2xl transition-all duration-200"
+        >
+          Add Bet
+        </button>
+        <button
+          type="button"
+          onClick={handleCancel}
+          className="w-full bg-gradient-to-r from-gray-400 via-gray-500 to-gray-700 text-white px-4 py-2 rounded-lg font-semibold shadow-lg hover:scale-105 hover:shadow-2xl transition-all duration-200"
+        >
+          Cancel
+        </button>
+      </div>
     </form>
   );
 }

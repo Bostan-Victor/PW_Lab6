@@ -73,7 +73,6 @@ export default function HomePage() {
           </div>
         </section>
       </main>
-      {/* Floating Add Bet Button */}
       <Link
         to="/add-bet"
         className="fixed bottom-8 right-8 z-50 flex items-center justify-center w-16 h-16 rounded-full bg-gradient-to-br from-blue-500 via-fuchsia-500 to-pink-500 shadow-2xl hover:scale-110 transition-all duration-200 border-4 border-white/30 animate-fab-glow"
