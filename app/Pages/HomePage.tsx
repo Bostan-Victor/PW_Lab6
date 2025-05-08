@@ -65,14 +65,6 @@ export default function HomePage() {
         </div>
         {/* Bet List Card */}
         <section className="relative">
-          <div className="absolute -top-10 right-0 z-10">
-            <Link
-              to="/add-bet"
-              className="inline-block bg-gradient-to-r from-blue-500 via-fuchsia-500 to-pink-500 text-white px-6 py-3 rounded-full shadow-lg font-bold text-lg hover:scale-105 hover:shadow-2xl transition-all duration-200 border-4 border-white/30"
-            >
-              + Add Bet
-            </Link>
-          </div>
           <div className="backdrop-blur bg-white/30 dark:bg-gray-900/40 rounded-2xl shadow-2xl border border-white/30 dark:border-gray-800/60 p-8 mt-8">
             <h2 className="text-2xl font-bold mb-6 text-gray-800 dark:text-gray-100 tracking-tight">
               Your Bets
@@ -81,6 +73,14 @@ export default function HomePage() {
           </div>
         </section>
       </main>
+      {/* Floating Add Bet Button */}
+      <Link
+        to="/add-bet"
+        className="fixed bottom-8 right-8 z-50 flex items-center justify-center w-16 h-16 rounded-full bg-gradient-to-br from-blue-500 via-fuchsia-500 to-pink-500 shadow-2xl hover:scale-110 transition-all duration-200 border-4 border-white/30 animate-fab-glow"
+        title="Add Bet"
+      >
+        <span className="text-4xl text-white font-bold drop-shadow">+</span>
+      </Link>
       <style>
         {`
         @keyframes gradient-x {
@@ -97,6 +97,13 @@ export default function HomePage() {
         }
         .animate-glow {
           animation: glow 3s ease-in-out infinite;
+        }
+        @keyframes fab-glow {
+          0%, 100% { box-shadow: 0 0 32px #f472b6, 0 0 8px #7f9cf5; }
+          50% { box-shadow: 0 0 64px #fbbf24, 0 0 16px #818cf8; }
+        }
+        .animate-fab-glow {
+          animation: fab-glow 2.5s ease-in-out infinite;
         }
         `}
       </style>
