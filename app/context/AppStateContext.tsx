@@ -11,6 +11,7 @@ type State = {
 type Action =
   | { type: "SET_BETS"; bets: Bet[] }
   | { type: "ADD_BET"; bet: Bet }
+  | { type: "DELETE_BET"; id: string }
   | { type: "SET_WALLET"; wallet: Wallet }
   | { type: "UPDATE_WALLET"; wallet: Wallet };
 
@@ -25,6 +26,8 @@ function reducer(state: State, action: Action): State {
       return { ...state, bets: action.bets };
     case "ADD_BET":
       return { ...state, bets: [...state.bets, action.bet] };
+    case "DELETE_BET":
+      return { ...state, bets: state.bets.filter((b) => b.id !== action.id) };
     case "SET_WALLET":
     case "UPDATE_WALLET":
       return { ...state, wallet: action.wallet };

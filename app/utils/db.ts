@@ -41,3 +41,14 @@ export async function put<T>(storeName: string, value: T): Promise<void> {
     request.onerror = () => reject(request.error);
   });
 }
+
+export async function deleteById(storeName: string, id: string): Promise<void> {
+  const db = await openDB();
+  return new Promise((resolve, reject) => {
+    const tx = db.transaction(storeName, "readwrite");
+    const store = tx.objectStore(storeName);
+    const request = store.delete(id);
+    request.onsuccess = () => resolve();
+    request.onerror = () => reject(request.error);
+  });
+}

@@ -1,5 +1,5 @@
 "use client";
-import { useAppState } from "./context/AppStateContext";
+import { useAppState } from "../context/AppStateContext";
 
 export default function TestState() {
   const { state } = useAppState();
