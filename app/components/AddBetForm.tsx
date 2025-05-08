@@ -12,7 +12,7 @@ function generateId() {
 }
 
 export default function AddBetForm() {
-  const { dispatch } = useAppState();
+  const { dispatch, state } = useAppState();
   const navigate = useNavigate();
   const [form, setForm] = useState<Omit<Bet, "id" | "payout" | "profit">>({
     date: new Date().toISOString().slice(0, 16),
@@ -26,16 +26,27 @@ export default function AddBetForm() {
   const [feedback, setFeedback] = useState<{ type: "success" | "error"; message: string } | null>(null);
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) {
-    const { name, value, type } = e.target as HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement;
+    const { name, value, type } = e.target;
     const checked = type === "checkbox" && (e.target as HTMLInputElement).checked;
     setForm((prev) => ({
       ...prev,
-      [name]: type === "checkbox" ? checked : value,
+      [name]:
+        type === "checkbox"
+          ? checked
+          : name === "amount" || name === "odds"
+          ? Number(value)
+          : value,
     }));
   }
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
+
+    if (state.wallet && form.amount > state.wallet.balance) {
+      setFeedback({ type: "error", message: "Insufficient wallet balance to place this bet." });
+      return;
+    }
+
     try {
       const payout = form.outcome === "Won" ? form.amount * form.odds : 0;
       const profit =

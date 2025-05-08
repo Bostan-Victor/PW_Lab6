@@ -2,6 +2,8 @@ import React from "react";
 import { Link } from "react-router";
 import BetList from "../components/BetList";
 import { useAppState } from "../context/AppStateContext";
+import WalletPanel from "../components/WalletPanel";
+import WalletForm from "../components/WalletForm";
 
 function DashboardSummary() {
   const { state } = useAppState();
@@ -44,10 +46,25 @@ function DashboardSummary() {
 }
 
 export default function HomePage() {
+  const { state } = useAppState();
+  const wallet = state.wallet;
+
   return (
     <div className="relative min-h-screen overflow-x-hidden">
       <div className="fixed inset-0 -z-10 bg-gradient-to-tr from-blue-900 via-purple-800 to-pink-700 animate-gradient-x" />
       <div className="fixed top-0 left-1/2 -translate-x-1/2 w-[80vw] h-[40vw] max-w-4xl blur-3xl opacity-40 bg-gradient-to-br from-blue-400 via-fuchsia-400 to-pink-400 rounded-full -z-10" />
+      <div className="absolute top-8 right-8 z-40">
+        <Link
+          to="/wallet"
+          className="flex items-center gap-2 px-4 py-2 rounded-full bg-white/70 dark:bg-gray-900/80 shadow-lg border border-white/40 dark:border-gray-800/60 hover:scale-105 transition-all"
+          title="View Wallet"
+        >
+          <span className="text-2xl text-yellow-500">👛</span>
+          <span className="font-bold text-gray-800 dark:text-gray-100 text-lg">
+            ${wallet ? wallet.balance.toFixed(2) : "0.00"}
+          </span>
+        </Link>
+      </div>
       <main className="max-w-5xl mx-auto px-4 py-12">
         {/* Header */}
         <header className="flex flex-col items-center mb-12">

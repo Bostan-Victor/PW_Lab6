@@ -36,17 +36,28 @@ export default function EditBetForm() {
   }
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) {
-    const { name, value, type } = e.target as HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement;
+    const { name, value, type } = e.target;
     const checked = type === "checkbox" && (e.target as HTMLInputElement).checked;
     setForm((prev) => ({
-      ...prev!,
-      [name]: type === "checkbox" ? checked : value,
+      ...prev,
+      [name]:
+        type === "checkbox"
+          ? checked
+          : name === "amount" || name === "odds"
+          ? Number(value)
+          : value,
     }));
   }
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     if (!form || !bet) return;
+
+    const amountDiff = form.amount - bet.amount;
+    if (state.wallet && amountDiff > state.wallet.balance) {
+      setFeedback({ type: "error", message: "Insufficient wallet balance to increase this bet." });
+      return;
+    }
 
     try {
       const payout = form.outcome === "Won" ? form.amount * form.odds : 0;
