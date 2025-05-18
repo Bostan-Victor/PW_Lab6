@@ -51,7 +51,14 @@ export default function BetList() {
           <select
             value={outcomeFilter}
             onChange={(e) => setOutcomeFilter(e.target.value)}
-            className="rounded px-2 py-1 border border-gray-300 dark:border-gray-700 bg-white/60 dark:bg-gray-800/60 focus:outline-none focus:ring-2 focus:ring-fuchsia-400 transition"
+            style={{
+              borderRadius: 8,
+              padding: "4px 8px",
+              border: "1px solid #ccc",
+              background: "var(--bg-main)",
+              color: "var(--text-main)",
+              transition: "background 0.3s, color 0.3s",
+            }}
           >
             {outcomeOptions.map((o) => (
               <option key={o} value={o}>{o}</option>
@@ -63,7 +70,14 @@ export default function BetList() {
           <select
             value={typeFilter}
             onChange={(e) => setTypeFilter(e.target.value)}
-            className="rounded px-2 py-1 border border-gray-300 dark:border-gray-700 bg-white/60 dark:bg-gray-800/60 focus:outline-none focus:ring-2 focus:ring-fuchsia-400 transition"
+            style={{
+              borderRadius: 8,
+              padding: "4px 8px",
+              border: "1px solid #ccc",
+              background: "var(--bg-main)",
+              color: "var(--text-main)",
+              transition: "background 0.3s, color 0.3s",
+            }}
           >
             {typeOptions.map((t) => (
               <option key={t} value={t}>{t}</option>
@@ -75,7 +89,7 @@ export default function BetList() {
             type="checkbox"
             checked={favoritesOnly}
             onChange={(e) => setFavoritesOnly(e.target.checked)}
-            className="accent-fuchsia-600"
+            style={{ accentColor: "var(--accent)" }}
           />
           <span className="font-semibold text-sm">Favorites only</span>
         </label>
@@ -84,114 +98,152 @@ export default function BetList() {
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           placeholder="Search bets..."
-          className="rounded px-3 py-2 border border-gray-300 dark:border-gray-700 bg-white/60 dark:bg-gray-800/60 focus:outline-none focus:ring-2 focus:ring-fuchsia-400 transition flex-1 min-w-[180px]"
+          style={{
+            borderRadius: 8,
+            padding: "8px 12px",
+            border: "1px solid #ccc",
+            background: "var(--bg-main)",
+            color: "var(--text-main)",
+            minWidth: 180,
+            transition: "background 0.3s, color 0.3s",
+          }}
         />
       </div>
       {feedback && (
-        <div className="p-2 rounded text-sm mb-4 bg-green-100 text-green-800 text-center shadow-lg">{feedback}</div>
+        <div style={{
+          padding: 8,
+          borderRadius: 8,
+          fontSize: 14,
+          marginBottom: 16,
+          background: "#bbf7d0",
+          color: "#166534",
+          textAlign: "center",
+          boxShadow: "0 2px 8px rgba(0,0,0,0.08)",
+        }}>{feedback}</div>
       )}
       {filteredBets.length === 0 ? (
-        <div className="text-center text-gray-300 py-8">
-          No bets match your filters. <Link to="/add-bet" className="text-fuchsia-400 underline hover:text-pink-400 transition">Add a bet</Link>!
+        <div style={{
+          textAlign: "center",
+          color: "var(--text-muted)",
+          padding: "32px 0",
+        }}>
+          No bets match your filters. <Link to="/add-bet" style={{ color: "var(--accent)", textDecoration: "underline" }}>Add a bet</Link>!
         </div>
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
           {filteredBets.map((bet) => (
             <div
               key={bet.id}
-              className="relative group bg-white/30 dark:bg-gray-900/40 border border-white/30 dark:border-gray-800/60 rounded-2xl shadow-2xl p-6 flex flex-col transition-transform duration-300 hover:scale-[1.03] hover:shadow-fuchsia-400/30 backdrop-blur-lg overflow-hidden"
+              style={{
+                position: "relative",
+                background: "var(--bg-card)",
+                color: "var(--text-main)",
+                borderRadius: 16,
+                boxShadow: "0 2px 16px rgba(0,0,0,0.08)",
+                border: "1px solid rgba(0,0,0,0.08)",
+                padding: 24,
+                display: "flex",
+                flexDirection: "column",
+                transition: "background 0.3s, color 0.3s, transform 0.2s",
+                minHeight: 220,
+              }}
             >
-              <div className="absolute -inset-1 z-0 rounded-2xl pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                <div className="w-full h-full bg-gradient-to-tr from-blue-400 via-fuchsia-400 to-pink-400 blur-2xl opacity-40 animate-gradient-x rounded-2xl"></div>
+              <span
+                style={{
+                  position: "absolute",
+                  top: 8,
+                  left: "50%",
+                  transform: "translateX(-50%)",
+                  padding: "2px 10px",
+                  borderRadius: 999,
+                  fontSize: 12,
+                  fontWeight: 700,
+                  background:
+                    bet.outcome === "Won"
+                      ? "#bbf7d0"
+                      : bet.outcome === "Lost"
+                      ? "#fecaca"
+                      : bet.outcome === "Draw"
+                      ? "#e5e7eb"
+                      : "#fef9c3",
+                  color:
+                    bet.outcome === "Won"
+                      ? "#166534"
+                      : bet.outcome === "Lost"
+                      ? "#991b1b"
+                      : bet.outcome === "Draw"
+                      ? "#374151"
+                      : "#a16207",
+                  boxShadow: "0 1px 4px rgba(0,0,0,0.04)",
+                  zIndex: 20,
+                  marginBottom: 8,
+                }}
+              >
+                {bet.outcome}
+              </span>
+              <div style={{ marginTop: 28, marginBottom: 8, fontWeight: 700, fontSize: 18 }}>
+                {bet.type}
               </div>
-              {bet.favorite && (
+              <div style={{ display: "flex", gap: 12, marginBottom: 8 }}>
+                <span style={{ color: "#3b82f6", fontSize: 14 }}>💵 {Number(bet.amount).toLocaleString(undefined, { maximumFractionDigits: 2 })}</span>
+                <span style={{ color: "#a21caf", fontSize: 14 }}>🎯 {Number(bet.odds).toLocaleString(undefined, { maximumFractionDigits: 2 })}</span>
+                <span style={{ color: "#fde68a", fontSize: 14 }}>💸 {Number(bet.payout).toLocaleString(undefined, { maximumFractionDigits: 2 })}</span>
+              </div>
+              <div style={{ marginBottom: 8 }}>
+                <span style={{ fontWeight: 600, fontSize: 14 }}>Profit: </span>
                 <span
-                  title="Favorite"
-                  className="absolute top-4 right-4 text-yellow-400 text-2xl drop-shadow-lg z-10"
+                  style={{
+                    color: bet.profit > 0 ? "#22c55e" : bet.profit < 0 ? "#ef4444" : "var(--text-main)",
+                    fontWeight: 700,
+                  }}
                 >
-                  ★
+                  {Number(bet.profit).toLocaleString(undefined, { maximumFractionDigits: 2 })}
                 </span>
+              </div>
+              {bet.notes && (
+                <div style={{ fontSize: 12, color: "var(--text-muted)", fontStyle: "italic", marginBottom: 8 }}>
+                  "{bet.notes}"
+                </div>
               )}
-              <div className="relative z-10">
-                <div className="flex items-center justify-between mb-2">
-                  <span className="font-bold text-lg text-gray-900 dark:text-gray-100 tracking-wide drop-shadow">
-                    {bet.type}
-                  </span>
-                  <span
-                    className={`px-3 py-1 rounded-full text-xs font-bold shadow ${
-                      bet.outcome === "Won"
-                        ? "bg-green-200 text-green-800"
-                        : bet.outcome === "Lost"
-                        ? "bg-red-200 text-red-800"
-                        : bet.outcome === "Draw"
-                        ? "bg-gray-300 text-gray-700"
-                        : "bg-yellow-100 text-yellow-700"
-                    }`}
-                  >
-                    {bet.outcome}
-                  </span>
-                </div>
-                <div className="flex flex-wrap gap-3 mb-2">
-                  <span className="text-sm text-blue-900 dark:text-blue-200 font-medium">
-                    💵 {Number(bet.amount).toLocaleString(undefined, { maximumFractionDigits: 2 })}
-                  </span>
-                  <span className="text-sm text-fuchsia-900 dark:text-fuchsia-200 font-medium">
-                    🎯 {Number(bet.odds).toLocaleString(undefined, { maximumFractionDigits: 2 })}
-                  </span>
-                  <span className="text-sm text-yellow-900 dark:text-yellow-200 font-medium">
-                    💸 {Number(bet.payout).toLocaleString(undefined, { maximumFractionDigits: 2 })}
-                  </span>
-                </div>
-                <div className="mb-2">
-                  <span className="font-semibold text-sm text-gray-800 dark:text-gray-200">Profit: </span>
-                  <span
-                    className={
-                      bet.profit > 0
-                        ? "text-green-500 font-bold"
-                        : bet.profit < 0
-                        ? "text-red-500 font-bold"
-                        : "text-gray-700 dark:text-gray-300"
-                    }
-                  >
-                    {Number(bet.profit).toLocaleString(undefined, { maximumFractionDigits: 2 })}
-                  </span>
-                </div>
-                {bet.notes && (
-                  <div className="text-xs text-gray-500 italic mb-2">"{bet.notes}"</div>
-                )}
-                <div className="text-xs text-gray-400 mb-4">{bet.date}</div>
-                <div className="flex gap-3 mt-auto">
-                  <Link
-                    to={`/edit-bet/${bet.id}`}
-                    className="bg-gradient-to-r from-blue-500 via-fuchsia-500 to-pink-500 text-white px-4 py-1 rounded-full font-semibold text-sm shadow hover:scale-105 transition-transform"
-                  >
-                    Edit
-                  </Link>
-                  <button
-                    onClick={() => handleDelete(bet.id)}
-                    className="bg-gradient-to-r from-pink-500 via-red-500 to-yellow-400 text-white px-4 py-1 rounded-full font-semibold text-sm shadow hover:scale-105 transition-transform"
-                    title="Delete bet"
-                  >
-                    Delete
-                  </button>
-                </div>
+              <div style={{ fontSize: 12, color: "var(--text-muted)", marginBottom: 16 }}>{bet.date}</div>
+              <div style={{ display: "flex", gap: 12, marginTop: "auto" }}>
+                <Link
+                  to={`/edit-bet/${bet.id}`}
+                  style={{
+                    background: "var(--accent)",
+                    color: "#fff",
+                    padding: "6px 18px",
+                    borderRadius: 999,
+                    fontWeight: 600,
+                    fontSize: 14,
+                    textDecoration: "none",
+                    boxShadow: "0 2px 8px rgba(0,0,0,0.08)",
+                  }}
+                >
+                  Edit
+                </Link>
+                <button
+                  onClick={() => handleDelete(bet.id)}
+                  style={{
+                    background: "#ef4444",
+                    color: "#fff",
+                    padding: "6px 18px",
+                    borderRadius: 999,
+                    fontWeight: 600,
+                    fontSize: 14,
+                    border: "none",
+                    boxShadow: "0 2px 8px rgba(0,0,0,0.08)",
+                    cursor: "pointer",
+                  }}
+                  title="Delete bet"
+                >
+                  Delete
+                </button>
               </div>
             </div>
           ))}
         </div>
       )}
-      <style>
-        {`
-        @keyframes gradient-x {
-          0%, 100% { background-position: 0% 50%; }
-          50% { background-position: 100% 50%; }
-        }
-        .animate-gradient-x {
-          background-size: 200% 200%;
-          animation: gradient-x 8s ease-in-out infinite;
-        }
-        `}
-      </style>
     </div>
   );
 }

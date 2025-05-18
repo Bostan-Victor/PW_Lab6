@@ -2,8 +2,6 @@ import React from "react";
 import { Link } from "react-router";
 import BetList from "../components/BetList";
 import { useAppState } from "../context/AppStateContext";
-import WalletPanel from "../components/WalletPanel";
-import WalletForm from "../components/WalletForm";
 
 function DashboardSummary() {
   const { state } = useAppState();
@@ -15,31 +13,98 @@ function DashboardSummary() {
 
   return (
     <section className="grid grid-cols-2 sm:grid-cols-4 gap-6 mb-8">
-      <div className="backdrop-blur bg-white/30 dark:bg-gray-900/40 rounded-2xl shadow-lg p-6 flex flex-col items-center border border-white/30 dark:border-gray-800/60">
-        <span className="text-blue-500 text-3xl mb-2">🎲</span>
-        <span className="text-gray-700 dark:text-gray-200 text-xs">Total Bets</span>
-        <span className="text-2xl font-bold">{totalBets}</span>
+      <div
+        style={{
+          background: "var(--bg-card)",
+          color: "var(--text-main)",
+          borderRadius: 16,
+          padding: 24,
+          boxShadow: "0 2px 16px rgba(0,0,0,0.08)",
+          border: "1px solid rgba(0,0,0,0.08)",
+          backdropFilter: "blur(4px)",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+        }}
+      >
+        <span style={{ color: "#3b82f6", fontSize: 28 }}>🎲</span>
+        <span style={{ fontSize: 12, color: "var(--text-muted)" }}>Total Bets</span>
+        <span style={{ fontSize: 24, fontWeight: 700 }}>{totalBets}</span>
       </div>
-      <div className="backdrop-blur bg-white/30 dark:bg-gray-900/40 rounded-2xl shadow-lg p-6 flex flex-col items-center border border-white/30 dark:border-gray-800/60">
-        <span className="text-green-500 text-3xl mb-2">🏆</span>
-        <span className="text-gray-700 dark:text-gray-200 text-xs">Won</span>
-        <span className="text-2xl font-bold text-green-600">{totalWon}</span>
+      <div
+        style={{
+          background: "var(--bg-card)",
+          color: "var(--text-main)",
+          borderRadius: 16,
+          padding: 24,
+          boxShadow: "0 2px 16px rgba(0,0,0,0.08)",
+          border: "1px solid rgba(0,0,0,0.08)",
+          backdropFilter: "blur(4px)",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+        }}
+      >
+        <span style={{ color: "#22c55e", fontSize: 28 }}>🏆</span>
+        <span style={{ fontSize: 12, color: "var(--text-muted)" }}>Won</span>
+        <span style={{ fontSize: 24, fontWeight: 700, color: "#22c55e" }}>{totalWon}</span>
       </div>
-      <div className="backdrop-blur bg-white/30 dark:bg-gray-900/40 rounded-2xl shadow-lg p-6 flex flex-col items-center border border-white/30 dark:border-gray-800/60">
-        <span className="text-red-500 text-3xl mb-2">💔</span>
-        <span className="text-gray-700 dark:text-gray-200 text-xs">Lost</span>
-        <span className="text-2xl font-bold text-red-600">{totalLost}</span>
+      <div
+        style={{
+          background: "var(--bg-card)",
+          color: "var(--text-main)",
+          borderRadius: 16,
+          padding: 24,
+          boxShadow: "0 2px 16px rgba(0,0,0,0.08)",
+          border: "1px solid rgba(0,0,0,0.08)",
+          backdropFilter: "blur(4px)",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+        }}
+      >
+        <span style={{ color: "#ef4444", fontSize: 28 }}>💔</span>
+        <span style={{ fontSize: 12, color: "var(--text-muted)" }}>Lost</span>
+        <span style={{ fontSize: 24, fontWeight: 700, color: "#ef4444" }}>{totalLost}</span>
       </div>
-      <div className="backdrop-blur bg-white/30 dark:bg-gray-900/40 rounded-2xl shadow-lg p-6 flex flex-col items-center border border-white/30 dark:border-gray-800/60">
-        <span className="text-yellow-500 text-3xl mb-2">💰</span>
-        <span className="text-gray-700 dark:text-gray-200 text-xs">Profit</span>
-        <span className={`text-2xl font-bold ${totalProfit > 0 ? "text-green-600" : totalProfit < 0 ? "text-red-600" : ""}`}>
+      <div
+        style={{
+          background: "var(--bg-card)",
+          color: "var(--text-main)",
+          borderRadius: 16,
+          padding: 24,
+          boxShadow: "0 2px 16px rgba(0,0,0,0.08)",
+          border: "1px solid rgba(0,0,0,0.08)",
+          backdropFilter: "blur(4px)",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+        }}
+      >
+        <span style={{ color: "#fde68a", fontSize: 28 }}>💰</span>
+        <span style={{ fontSize: 12, color: "var(--text-muted)" }}>Profit</span>
+        <span
+          style={{
+            fontSize: 24,
+            fontWeight: 700,
+            color: totalProfit > 0 ? "#22c55e" : totalProfit < 0 ? "#ef4444" : "var(--text-main)",
+          }}
+        >
           {Number(totalProfit).toLocaleString(undefined, { maximumFractionDigits: 2 })}
         </span>
       </div>
       <div className="col-span-2 sm:col-span-4 flex justify-center mt-2">
-        <span className="text-gray-500 text-xs">Win Rate</span>
-        <span className="ml-2 text-lg font-semibold">{winRate}%</span>
+        <span
+          style={{
+            color: "var(--text-main)",
+            fontSize: 12,
+            fontWeight: 600,
+            marginRight: 8,
+          }}
+        >
+          Win Rate
+        </span>
+        <span style={{ color: "var(--text-main)", fontSize: 18, fontWeight: 600 }}>{winRate}%</span>
       </div>
     </section>
   );
@@ -50,17 +115,40 @@ export default function HomePage() {
   const wallet = state.wallet;
 
   return (
-    <div className="relative min-h-screen overflow-x-hidden">
-      <div className="fixed inset-0 -z-10 bg-gradient-to-tr from-blue-900 via-purple-800 to-pink-700 animate-gradient-x" />
-      <div className="fixed top-0 left-1/2 -translate-x-1/2 w-[80vw] h-[40vw] max-w-4xl blur-3xl opacity-40 bg-gradient-to-br from-blue-400 via-fuchsia-400 to-pink-400 rounded-full -z-10" />
+    <div
+      className="relative min-h-screen overflow-x-hidden"
+      style={{
+        background: "linear-gradient(135deg, var(--gradient-from), var(--gradient-via), var(--gradient-to))",
+        transition: "background 0.3s",
+      }}
+    >
+      <div
+        className="fixed top-0 left-1/2 -translate-x-1/2 w-[80vw] h-[40vw] max-w-4xl blur-3xl opacity-40 rounded-full -z-10"
+        style={{
+          background: "linear-gradient(120deg, var(--gradient-from), var(--gradient-via), var(--gradient-to))",
+        }}
+      />
       <div className="absolute top-8 right-8 z-40">
         <Link
           to="/wallet"
-          className="flex items-center gap-2 px-4 py-2 rounded-full bg-white/70 dark:bg-gray-900/80 shadow-lg border border-white/40 dark:border-gray-800/60 hover:scale-105 transition-all"
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: 8,
+            padding: "8px 16px",
+            borderRadius: 999,
+            background: "var(--bg-card)",
+            color: "var(--text-main)",
+            boxShadow: "0 2px 8px rgba(0,0,0,0.08)",
+            border: "1px solid rgba(0,0,0,0.08)",
+            fontWeight: 600,
+            textDecoration: "none",
+            transition: "background 0.3s, color 0.3s",
+          }}
           title="View Wallet"
         >
-          <span className="text-2xl text-yellow-500">👛</span>
-          <span className="font-bold text-gray-800 dark:text-gray-100 text-lg">
+          <span style={{ fontSize: 24, color: "#fde047" }}>👛</span>
+          <span style={{ fontWeight: 700, fontSize: 18 }}>
             ${wallet ? wallet.balance.toFixed(2) : "0.00"}
           </span>
         </Link>
@@ -69,17 +157,36 @@ export default function HomePage() {
         {/* Header */}
         <header className="flex flex-col sm:flex-row items-center justify-between mb-12">
           <div className="flex flex-col items-center sm:items-start">
-            <h1 className="text-5xl sm:text-6xl font-extrabold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-fuchsia-400 to-pink-400 drop-shadow-lg animate-glow">
+            <h1
+              className="text-5xl sm:text-6xl font-extrabold tracking-tight"
+              style={{
+                color: "var(--text-main)",
+                marginBottom: 0,
+              }}
+            >
               Bet Tracker
             </h1>
-            <p className="mt-4 text-lg text-gray-200/90 dark:text-gray-300/90 text-center sm:text-left max-w-2xl">
+            <p
+              className="mt-4 text-lg text-center sm:text-left max-w-2xl"
+              style={{ color: "var(--text-main)" }}
+            >
               Track your bets, analyze your performance, and manage your wallet with style. <br />
-              <span className="text-blue-200">Stay on top of your game!</span>
+              <span style={{ color: "var(--accent)" }}>Stay on top of your game!</span>
             </p>
           </div>
           <Link
             to="/dashboard"
-            className="mt-6 sm:mt-0 px-4 py-2 rounded-full bg-gradient-to-r from-blue-400 via-fuchsia-400 to-pink-400 text-white font-semibold shadow hover:scale-105 transition"
+            style={{
+              marginTop: 24,
+              padding: "8px 16px",
+              borderRadius: 999,
+              background: "var(--accent)",
+              color: "#fff",
+              fontWeight: 600,
+              textDecoration: "none",
+              boxShadow: "0 2px 8px rgba(0,0,0,0.08)",
+              transition: "background 0.3s, color 0.3s",
+            }}
           >
             Dashboard
           </Link>
@@ -90,8 +197,23 @@ export default function HomePage() {
         </div>
         {/* Bet List Card */}
         <section className="relative">
-          <div className="backdrop-blur bg-white/30 dark:bg-gray-900/40 rounded-2xl shadow-2xl border border-white/30 dark:border-gray-800/60 p-8 mt-8">
-            <h2 className="text-2xl font-bold mb-6 text-gray-800 dark:text-gray-100 tracking-tight">
+          <div
+            style={{
+              background: "var(--bg-card)",
+              color: "var(--text-main)",
+              borderRadius: 16,
+              boxShadow: "0 2px 16px rgba(0,0,0,0.08)",
+              border: "1px solid rgba(0,0,0,0.08)",
+              backdropFilter: "blur(4px)",
+              padding: 32,
+              marginTop: 32,
+              transition: "background 0.3s, color 0.3s",
+            }}
+          >
+            <h2
+              className="text-2xl font-bold mb-6 tracking-tight"
+              style={{ color: "var(--text-main)" }}
+            >
               Your Bets
             </h2>
             <BetList />
@@ -100,37 +222,29 @@ export default function HomePage() {
       </main>
       <Link
         to="/add-bet"
-        className="fixed bottom-8 right-8 z-50 flex items-center justify-center w-16 h-16 rounded-full bg-gradient-to-br from-blue-500 via-fuchsia-500 to-pink-500 shadow-2xl hover:scale-110 transition-all duration-200 border-4 border-white/30 animate-fab-glow"
+        style={{
+          position: "fixed",
+          bottom: 32,
+          right: 32,
+          zIndex: 50,
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          width: 64,
+          height: 64,
+          borderRadius: "50%",
+          background: "var(--accent)",
+          color: "#fff",
+          fontWeight: 700,
+          fontSize: 32,
+          boxShadow: "0 4px 24px rgba(0,0,0,0.18)",
+          border: "4px solid rgba(255,255,255,0.3)",
+          transition: "background 0.3s, color 0.3s",
+        }}
         title="Add Bet"
       >
-        <span className="text-4xl text-white font-bold drop-shadow">+</span>
+        +
       </Link>
-      <style>
-        {`
-        @keyframes gradient-x {
-          0%, 100% { background-position: 0% 50%; }
-          50% { background-position: 100% 50%; }
-        }
-        .animate-gradient-x {
-          background-size: 200% 200%;
-          animation: gradient-x 10s ease-in-out infinite;
-        }
-        @keyframes glow {
-          0%, 100% { text-shadow: 0 0 32px #fff7, 0 0 8px #a5b4fc; }
-          50% { text-shadow: 0 0 64px #f0abfc, 0 0 16px #818cf8; }
-        }
-        .animate-glow {
-          animation: glow 3s ease-in-out infinite;
-        }
-        @keyframes fab-glow {
-          0%, 100% { box-shadow: 0 0 32px #f472b6, 0 0 8px #7f9cf5; }
-          50% { box-shadow: 0 0 64px #fbbf24, 0 0 16px #818cf8; }
-        }
-        .animate-fab-glow {
-          animation: fab-glow 2.5s ease-in-out infinite;
-        }
-        `}
-      </style>
     </div>
   );
 }
