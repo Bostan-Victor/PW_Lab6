@@ -19,90 +19,119 @@ export default function DashboardPage() {
   const biggestLoss = bets.reduce((min, b) => (b.profit < min ? b.profit : min), 0);
 
   return (
-    <main className="relative min-h-screen flex flex-col items-center bg-gradient-to-tr from-blue-900 via-purple-800 to-pink-700 animate-gradient-x py-12 overflow-hidden">
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[60vw] h-[30vw] max-w-2xl blur-3xl opacity-40 bg-gradient-to-br from-blue-400 via-fuchsia-400 to-pink-400 rounded-full -z-10" />
-      <div className="w-full max-w-3xl backdrop-blur bg-white/30 dark:bg-gray-900/40 rounded-2xl shadow-2xl border border-white/30 dark:border-gray-800/60 p-10 z-10">
+    <main
+      className="relative min-h-screen flex flex-col items-center py-12 overflow-hidden"
+      style={{
+        background: "linear-gradient(135deg, var(--gradient-from), var(--gradient-via), var(--gradient-to))",
+        transition: "background 0.3s",
+      }}
+    >
+      <div
+        className="absolute top-0 left-1/2 -translate-x-1/2 w-[60vw] h-[30vw] max-w-2xl blur-3xl opacity-40 rounded-full -z-10"
+        style={{
+          background: "linear-gradient(120deg, var(--gradient-from), var(--gradient-via), var(--gradient-to))",
+        }}
+      />
+      <div
+        className="w-full max-w-3xl backdrop-blur rounded-2xl shadow-2xl border p-10 z-10"
+        style={{
+          background: "var(--bg-card)",
+          color: "var(--text-main)",
+          borderColor: "rgba(0,0,0,0.08)",
+          transition: "background 0.3s, color 0.3s",
+        }}
+      >
         <div className="flex items-center justify-between mb-6">
-          <h1 className="text-3xl font-extrabold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-fuchsia-400 to-pink-400 drop-shadow-lg animate-glow">
+          <h1
+            className="text-3xl font-extrabold tracking-tight text-center"
+            style={{
+              background: "linear-gradient(90deg, var(--gradient-from), var(--accent), var(--gradient-to))",
+              WebkitBackgroundClip: "text",
+              WebkitTextFillColor: "transparent",
+              backgroundClip: "text",
+            }}
+          >
             Dashboard
           </h1>
           <Link
             to="/"
-            className="text-sm px-4 py-2 rounded-full bg-gradient-to-r from-blue-400 via-fuchsia-400 to-pink-400 text-white font-semibold shadow hover:scale-105 transition"
+            style={{
+              background: "var(--accent)",
+              color: "#fff",
+              padding: "8px 16px",
+              borderRadius: 999,
+              textDecoration: "none",
+              fontWeight: 600,
+              boxShadow: "0 2px 8px rgba(0,0,0,0.08)",
+            }}
           >
             Home
           </Link>
         </div>
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 mb-10">
           <div className="dashboard-card">
-            <span className="text-blue-500 text-3xl mb-2">🎲</span>
-            <span className="text-xs text-gray-200">Total Bets</span>
-            <span className="text-2xl font-bold text-white tracking-widest">
-              {totalBets}
-            </span>
+            <span style={{ color: "#3b82f6", fontSize: 28 }}>🎲</span>
+            <span style={{ fontSize: 12, color: "var(--text-muted)" }}>Total Bets</span>
+            <span style={{ fontSize: 24, fontWeight: 700 }}>{totalBets}</span>
           </div>
           <div className="dashboard-card">
-            <span className="text-green-400 text-3xl mb-2">🏆</span>
-            <span className="text-xs text-gray-200">Won</span>
-            <span className="text-2xl font-bold text-green-200 tracking-widest">
-              {totalWon}
-            </span>
+            <span style={{ color: "#22c55e", fontSize: 28 }}>🏆</span>
+            <span style={{ fontSize: 12, color: "var(--text-muted)" }}>Won</span>
+            <span style={{ fontSize: 24, fontWeight: 700, color: "#22c55e" }}>{totalWon}</span>
           </div>
           <div className="dashboard-card">
-            <span className="text-red-400 text-3xl mb-2">💔</span>
-            <span className="text-xs text-gray-200">Lost</span>
-            <span className="text-2xl font-bold text-red-200 tracking-widest">
-              {totalLost}
-            </span>
+            <span style={{ color: "#ef4444", fontSize: 28 }}>💔</span>
+            <span style={{ fontSize: 12, color: "var(--text-muted)" }}>Lost</span>
+            <span style={{ fontSize: 24, fontWeight: 700, color: "#ef4444" }}>{totalLost}</span>
           </div>
           <div className="dashboard-card">
-            <span className="text-gray-400 text-3xl mb-2">🤝</span>
-            <span className="text-xs text-gray-200">Draw</span>
-            <span className="text-2xl font-bold text-gray-200 tracking-widest">
-              {totalDraw}
-            </span>
+            <span style={{ color: "#a1a1aa", fontSize: 28 }}>🤝</span>
+            <span style={{ fontSize: 12, color: "var(--text-muted)" }}>Draw</span>
+            <span style={{ fontSize: 24, fontWeight: 700 }}>{totalDraw}</span>
           </div>
           <div className="dashboard-card">
-            <span className="text-yellow-400 text-3xl mb-2">⏳</span>
-            <span className="text-xs text-gray-200">Pending</span>
-            <span className="text-2xl font-bold text-yellow-200 tracking-widest">
-              {totalPending}
-            </span>
+            <span style={{ color: "#facc15", fontSize: 28 }}>⏳</span>
+            <span style={{ fontSize: 12, color: "var(--text-muted)" }}>Pending</span>
+            <span style={{ fontSize: 24, fontWeight: 700, color: "#facc15" }}>{totalPending}</span>
           </div>
           <div className="dashboard-card">
-            <span className="text-yellow-300 text-3xl mb-2">💰</span>
-            <span className="text-xs text-gray-200">Total Profit</span>
-            <span className={`text-2xl font-bold tracking-widest ${totalProfit > 0 ? "text-green-300" : totalProfit < 0 ? "text-red-300" : "text-white"}`}>
+            <span style={{ color: "#fde68a", fontSize: 28 }}>💰</span>
+            <span style={{ fontSize: 12, color: "var(--text-muted)" }}>Total Profit</span>
+            <span
+              style={{
+                fontSize: 24,
+                fontWeight: 700,
+                color: totalProfit > 0 ? "#22c55e" : totalProfit < 0 ? "#ef4444" : "var(--text-main)",
+              }}
+            >
               {Number(totalProfit).toLocaleString(undefined, { maximumFractionDigits: 2 })}
             </span>
           </div>
           <div className="dashboard-card">
-            <span className="text-fuchsia-400 text-3xl mb-2">📈</span>
-            <span className="text-xs text-gray-200">Win Rate</span>
-            <span className="text-2xl font-bold text-fuchsia-200 tracking-widest">
-              {winRate}%
-            </span>
+            <span style={{ color: "#e879f9", fontSize: 28 }}>📈</span>
+            <span style={{ fontSize: 12, color: "var(--text-muted)" }}>Win Rate</span>
+            <span style={{ fontSize: 24, fontWeight: 700, color: "#e879f9" }}>{winRate}%</span>
           </div>
           <div className="dashboard-card">
-            <span className="text-blue-300 text-3xl mb-2">💵</span>
-            <span className="text-xs text-gray-200">Avg Bet</span>
-            <span className="text-2xl font-bold text-blue-200 tracking-widest">
+            <span style={{ color: "#60a5fa", fontSize: 28 }}>💵</span>
+            <span style={{ fontSize: 12, color: "var(--text-muted)" }}>Avg Bet</span>
+            <span style={{ fontSize: 24, fontWeight: 700, color: "#60a5fa" }}>
               ${Number(avgBetAmount).toLocaleString(undefined, { maximumFractionDigits: 2 })}
             </span>
           </div>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
           <div className="dashboard-card">
-            <span className="text-green-400 text-2xl mb-2">🏅</span>
-            <span className="text-xs text-gray-200">Biggest Win</span>
-            <span className="text-xl font-bold text-green-200 tracking-widest">
+            <span style={{ color: "#22c55e", fontSize: 22 }}>🏅</span>
+            <span style={{ fontSize: 12, color: "var(--text-muted)" }}>Biggest Win</span>
+            <span style={{ fontSize: 20, fontWeight: 700, color: "#22c55e" }}>
               ${Number(biggestWin).toLocaleString(undefined, { maximumFractionDigits: 2 })}
             </span>
           </div>
           <div className="dashboard-card">
-            <span className="text-red-400 text-2xl mb-2">💣</span>
-            <span className="text-xs text-gray-200">Biggest Loss</span>
-            <span className="text-xl font-bold text-red-200 tracking-widest">
+            <span style={{ color: "#ef4444", fontSize: 22 }}>💣</span>
+            <span style={{ fontSize: 12, color: "var(--text-muted)" }}>Biggest Loss</span>
+            <span style={{ fontSize: 20, fontWeight: 700, color: "#ef4444" }}>
               ${Number(biggestLoss).toLocaleString(undefined, { maximumFractionDigits: 2 })}
             </span>
           </div>
@@ -111,29 +140,6 @@ export default function DashboardPage() {
       <div className="w-full max-w-3xl mt-12">
         <ProfitOverTimeChart bets={bets} />
       </div>
-      <style>
-        {`
-        .dashboard-card {
-          @apply backdrop-blur bg-white/20 dark:bg-gray-900/40 rounded-2xl shadow-lg p-6 flex flex-col items-center border border-white/20 dark:border-gray-800/40 transition-transform duration-300 hover:scale-105 hover:shadow-fuchsia-400/30;
-          box-shadow: 0 4px 32px 0 rgba(124,58,237,0.08), 0 1.5px 8px 0 rgba(236,72,153,0.08);
-        }
-        @keyframes gradient-x {
-          0%, 100% { background-position: 0% 50%; }
-          50% { background-position: 100% 50%; }
-        }
-        .animate-gradient-x {
-          background-size: 200% 200%;
-          animation: gradient-x 10s ease-in-out infinite;
-        }
-        @keyframes glow {
-          0%, 100% { text-shadow: 0 0 32px #fff7, 0 0 8px #a5b4fc; }
-          50% { text-shadow: 0 0 64px #f0abfc, 0 0 16px #818cf8; }
-        }
-        .animate-glow {
-          animation: glow 3s ease-in-out infinite;
-        }
-        `}
-      </style>
     </main>
   );
 }

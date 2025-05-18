@@ -8,34 +8,58 @@ export default function WalletPanel() {
   if (!wallet) return null;
 
   return (
-    <div className="mb-8 p-6 rounded-2xl shadow-lg bg-white/40 dark:bg-gray-900/60 border border-white/30 dark:border-gray-800/60 backdrop-blur">
-      <div className="flex items-center justify-between mb-4">
-        <h2 className="text-xl font-bold text-gray-800 dark:text-gray-100">Wallet</h2>
-        <span className="text-2xl font-extrabold text-green-600 dark:text-green-400">
+    <div
+      style={{
+        marginBottom: 32,
+        padding: 24,
+        borderRadius: 16,
+        boxShadow: "0 2px 16px rgba(0,0,0,0.08)",
+        background: "var(--bg-card)",
+        color: "var(--text-main)",
+        border: "1px solid rgba(0,0,0,0.08)",
+        backdropFilter: "blur(4px)",
+        transition: "background 0.3s, color 0.3s",
+      }}
+    >
+      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 16 }}>
+        <h2 style={{ fontSize: 20, fontWeight: 700, color: "var(--text-main)" }}>Wallet</h2>
+        <span style={{ fontSize: 24, fontWeight: 800, color: "#22c55e" }}>
           ${Number(wallet.balance).toLocaleString(undefined, { maximumFractionDigits: 2 })}
         </span>
       </div>
       <div>
-        <h3 className="font-semibold mb-2 text-gray-700 dark:text-gray-200">Transactions</h3>
+        <h3 style={{ fontWeight: 600, marginBottom: 8, color: "var(--text-muted)" }}>Transactions</h3>
         {wallet.transactions.length === 0 ? (
-          <div className="text-gray-400 text-sm">No transactions yet.</div>
+          <div style={{ color: "#a1a1aa", fontSize: 14 }}>No transactions yet.</div>
         ) : (
-          <ul className="max-h-48 overflow-y-auto divide-y divide-gray-200 dark:divide-gray-800">
+          <ul style={{ maxHeight: 192, overflowY: "auto", borderTop: "1px solid #eee" }}>
             {wallet.transactions.map((tx) => (
-              <li key={tx.id} className="py-2 flex items-center justify-between text-sm">
+              <li
+                key={tx.id}
+                style={{
+                  padding: "8px 0",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                  fontSize: 14,
+                  borderBottom: "1px solid #eee",
+                }}
+              >
                 <span>
-                  {tx.type === "deposit" && <span className="text-green-600">Deposit</span>}
-                  {tx.type === "withdrawal" && <span className="text-red-600">Withdrawal</span>}
-                  {tx.type === "bet" && <span className="text-blue-600">Bet</span>}
-                  {tx.type === "payout" && <span className="text-yellow-600">Payout</span>}
-                  <span className="ml-2 text-gray-500">{new Date(tx.date).toLocaleString()}</span>
+                  {tx.type === "deposit" && <span style={{ color: "#22c55e" }}>Deposit</span>}
+                  {tx.type === "withdrawal" && <span style={{ color: "#ef4444" }}>Withdrawal</span>}
+                  {tx.type === "bet" && <span style={{ color: "#2563eb" }}>Bet</span>}
+                  {tx.type === "payout" && <span style={{ color: "#eab308" }}>Payout</span>}
+                  <span style={{ marginLeft: 8, color: "var(--text-muted)" }}>{new Date(tx.date).toLocaleString()}</span>
                 </span>
                 <span
-                  className={
-                    tx.type === "deposit" || tx.type === "payout"
-                      ? "text-green-600 font-semibold"
-                      : "text-red-600 font-semibold"
-                  }
+                  style={{
+                    color:
+                      tx.type === "deposit" || tx.type === "payout"
+                        ? "#22c55e"
+                        : "#ef4444",
+                    fontWeight: 600,
+                  }}
                 >
                   {tx.type === "deposit" || tx.type === "payout" ? "+" : "-"}${Number(tx.amount).toLocaleString(undefined, { maximumFractionDigits: 2 })}
                 </span>

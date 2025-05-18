@@ -78,14 +78,28 @@ export default function AddBetForm() {
   }
 
   return (
-    <form className="space-y-6" onSubmit={handleSubmit}>
+    <form
+      className="space-y-6"
+      onSubmit={handleSubmit}
+      style={{
+        background: "var(--bg-card)",
+        color: "var(--text-main)",
+        borderRadius: 16,
+        padding: 24,
+        boxShadow: "0 2px 16px rgba(0,0,0,0.08)",
+        transition: "background 0.3s, color 0.3s",
+      }}
+    >
       {feedback && (
         <div
-          className={`p-2 rounded text-sm mb-2 text-center ${
-            feedback.type === "success"
-              ? "bg-green-100 text-green-800"
-              : "bg-red-100 text-red-800"
-          }`}
+          style={{
+            background: feedback.type === "success" ? "#bbf7d0" : "#fecaca",
+            color: feedback.type === "success" ? "#166534" : "#991b1b",
+            borderRadius: 8,
+            padding: "8px 0",
+            textAlign: "center",
+            marginBottom: 8,
+          }}
         >
           {feedback.message}
         </div>
@@ -97,7 +111,15 @@ export default function AddBetForm() {
           name="date"
           value={form.date}
           onChange={handleChange}
-          className="border border-gray-300 dark:border-gray-700 rounded px-3 py-2 w-full bg-white/60 dark:bg-gray-800/60 backdrop-blur focus:outline-none focus:ring-2 focus:ring-fuchsia-400 transition"
+          style={{
+            background: "var(--bg-main)",
+            color: "var(--text-main)",
+            border: "1px solid #ccc",
+            borderRadius: 8,
+            padding: "8px 12px",
+            width: "100%",
+            marginBottom: 8,
+          }}
           required
         />
       </div>
@@ -107,7 +129,15 @@ export default function AddBetForm() {
           name="type"
           value={form.type}
           onChange={handleChange}
-          className="border border-gray-300 dark:border-gray-700 rounded px-3 py-2 w-full bg-white/60 dark:bg-gray-800/60 backdrop-blur focus:outline-none focus:ring-2 focus:ring-fuchsia-400 transition"
+          style={{
+            background: "var(--bg-main)",
+            color: "var(--text-main)",
+            border: "1px solid #ccc",
+            borderRadius: 8,
+            padding: "8px 12px",
+            width: "100%",
+            marginBottom: 8,
+          }}
         >
           {betTypes.map((t) => (
             <option key={t} value={t}>
@@ -126,7 +156,15 @@ export default function AddBetForm() {
             onChange={handleChange}
             min={0}
             step={0.01}
-            className="border border-gray-300 dark:border-gray-700 rounded px-3 py-2 w-full bg-white/60 dark:bg-gray-800/60 backdrop-blur focus:outline-none focus:ring-2 focus:ring-fuchsia-400 transition"
+            style={{
+              background: "var(--bg-main)",
+              color: "var(--text-main)",
+              border: "1px solid #ccc",
+              borderRadius: 8,
+              padding: "8px 12px",
+              width: "100%",
+              marginBottom: 8,
+            }}
             required
           />
         </div>
@@ -139,7 +177,15 @@ export default function AddBetForm() {
             onChange={handleChange}
             min={1}
             step={0.01}
-            className="border border-gray-300 dark:border-gray-700 rounded px-3 py-2 w-full bg-white/60 dark:bg-gray-800/60 backdrop-blur focus:outline-none focus:ring-2 focus:ring-fuchsia-400 transition"
+            style={{
+              background: "var(--bg-main)",
+              color: "var(--text-main)",
+              border: "1px solid #ccc",
+              borderRadius: 8,
+              padding: "8px 12px",
+              width: "100%",
+              marginBottom: 8,
+            }}
             required
           />
         </div>
@@ -150,7 +196,15 @@ export default function AddBetForm() {
           name="outcome"
           value={form.outcome}
           onChange={handleChange}
-          className="border border-gray-300 dark:border-gray-700 rounded px-3 py-2 w-full bg-white/60 dark:bg-gray-800/60 backdrop-blur focus:outline-none focus:ring-2 focus:ring-fuchsia-400 transition"
+          style={{
+            background: "var(--bg-main)",
+            color: "var(--text-main)",
+            border: "1px solid #ccc",
+            borderRadius: 8,
+            padding: "8px 12px",
+            width: "100%",
+            marginBottom: 8,
+          }}
         >
           {outcomes.map((o) => (
             <option key={o} value={o}>
@@ -165,7 +219,15 @@ export default function AddBetForm() {
           name="notes"
           value={form.notes}
           onChange={handleChange}
-          className="border border-gray-300 dark:border-gray-700 rounded px-3 py-2 w-full bg-white/60 dark:bg-gray-800/60 backdrop-blur focus:outline-none focus:ring-2 focus:ring-fuchsia-400 transition"
+          style={{
+            background: "var(--bg-main)",
+            color: "var(--text-main)",
+            border: "1px solid #ccc",
+            borderRadius: 8,
+            padding: "8px 12px",
+            width: "100%",
+            marginBottom: 8,
+          }}
           rows={2}
         />
       </div>
@@ -175,21 +237,48 @@ export default function AddBetForm() {
           name="favorite"
           checked={form.favorite}
           onChange={handleChange}
-          className="mr-2 accent-fuchsia-600"
+          style={{
+            accentColor: "var(--accent)",
+            marginRight: 8,
+          }}
         />
         <label className="font-semibold">Favorite</label>
       </div>
       <div className="flex gap-4">
         <button
           type="submit"
-          className="w-full bg-gradient-to-r from-blue-500 via-fuchsia-500 to-pink-500 text-white px-4 py-2 rounded-lg font-semibold shadow-lg hover:scale-105 hover:shadow-2xl transition-all duration-200"
+          style={{
+            background: "var(--accent)",
+            color: "#fff",
+            border: "none",
+            borderRadius: 8,
+            padding: "12px 0",
+            width: "100%",
+            fontWeight: 600,
+            fontSize: 16,
+            cursor: "pointer",
+            boxShadow: "0 2px 8px rgba(0,0,0,0.08)",
+            transition: "background 0.2s",
+          }}
         >
           Add Bet
         </button>
         <button
           type="button"
           onClick={handleCancel}
-          className="w-full bg-gradient-to-r from-gray-400 via-gray-500 to-gray-700 text-white px-4 py-2 rounded-lg font-semibold shadow-lg hover:scale-105 hover:shadow-2xl transition-all duration-200"
+          style={{
+            background: "#aaa",
+            color: "#fff",
+            border: "none",
+            borderRadius: 8,
+            padding: "12px 0",
+            width: "100%",
+            fontWeight: 600,
+            fontSize: 16,
+            cursor: "pointer",
+            boxShadow: "0 2px 8px rgba(0,0,0,0.08)",
+            transition: "background 0.2s",
+          }}
         >
           Cancel
         </button>

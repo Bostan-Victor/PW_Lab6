@@ -10,19 +10,34 @@ import {
 import type { Route } from "./+types/root";
 import "./app.css";
 import { AppStateProvider } from "./context/AppStateContext";
+import { ThemeProvider, useTheme } from "./context/ThemeContext";
 
-export const links: Route.LinksFunction = () => [
-  { rel: "preconnect", href: "https://fonts.googleapis.com" },
-  {
-    rel: "preconnect",
-    href: "https://fonts.gstatic.com",
-    crossOrigin: "anonymous",
-  },
-  {
-    rel: "stylesheet",
-    href: "https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap",
-  },
-];
+function ThemeToggle() {
+  const { theme, toggleTheme } = useTheme();
+  return (
+    <button
+      onClick={toggleTheme}
+      style={{
+        position: "fixed",
+        top: 24,
+        left: 24,
+        background: "var(--bg-card)",
+        color: "var(--text-main)",
+        border: "none",
+        borderRadius: "50%",
+        width: 48,
+        height: 48,
+        fontSize: 24,
+        cursor: "pointer",
+        boxShadow: "0 2px 8px rgba(0,0,0,0.08)",
+        zIndex: 1000,
+      }}
+      title="Toggle theme"
+    >
+      {theme === "dark" ? "🌙" : "🌞"}
+    </button>
+  );
+}
 
 export function Layout({ children }: { children: React.ReactNode }) {
   return (
@@ -34,9 +49,12 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Links />
       </head>
       <body>
-        <AppStateProvider>
-          {children}
-        </AppStateProvider>
+        <ThemeProvider>
+          <AppStateProvider>
+            <ThemeToggle />
+            {children}
+          </AppStateProvider>
+        </ThemeProvider>
         <ScrollRestoration />
         <Scripts />
       </body>

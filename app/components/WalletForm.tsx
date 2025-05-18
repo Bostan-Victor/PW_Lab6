@@ -25,11 +25,27 @@ export default function WalletForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="mb-8 flex flex-col sm:flex-row items-center gap-4">
+    <form
+      onSubmit={handleSubmit}
+      style={{
+        marginBottom: 32,
+        display: "flex",
+        flexDirection: "row",
+        alignItems: "center",
+        gap: 16,
+      }}
+    >
       <select
         value={type}
         onChange={(e) => setType(e.target.value as "deposit" | "withdrawal")}
-        className="rounded px-3 py-2 border border-gray-300 dark:border-gray-700 bg-white/60 dark:bg-gray-800/60 focus:outline-none focus:ring-2 focus:ring-fuchsia-400 transition"
+        style={{
+          borderRadius: 8,
+          padding: "8px 12px",
+          border: "1px solid #ccc",
+          background: "var(--bg-main)",
+          color: "var(--text-main)",
+          transition: "background 0.3s, color 0.3s",
+        }}
       >
         <option value="deposit">Deposit</option>
         <option value="withdrawal">Withdraw</option>
@@ -41,16 +57,34 @@ export default function WalletForm() {
         value={amount}
         onChange={(e) => setAmount(e.target.value)}
         placeholder="Amount"
-        className="rounded px-3 py-2 border border-gray-300 dark:border-gray-700 bg-white/60 dark:bg-gray-800/60 focus:outline-none focus:ring-2 focus:ring-fuchsia-400 transition"
+        style={{
+          borderRadius: 8,
+          padding: "8px 12px",
+          border: "1px solid #ccc",
+          background: "var(--bg-main)",
+          color: "var(--text-main)",
+          transition: "background 0.3s, color 0.3s",
+        }}
       />
       <button
         type="submit"
-        className="bg-gradient-to-r from-blue-500 via-fuchsia-500 to-pink-500 text-white px-5 py-2 rounded-lg font-semibold shadow hover:scale-105 transition-all duration-200"
+        style={{
+          background: "var(--accent)",
+          color: "#fff",
+          padding: "8px 20px",
+          borderRadius: 8,
+          fontWeight: 600,
+          fontSize: 16,
+          border: "none",
+          boxShadow: "0 2px 8px rgba(0,0,0,0.08)",
+          cursor: "pointer",
+          transition: "background 0.2s",
+        }}
       >
         {type === "deposit" ? "Deposit" : "Withdraw"}
       </button>
       {feedback && (
-        <span className="ml-2 text-sm font-medium text-green-600">{feedback}</span>
+        <span style={{ marginLeft: 8, fontSize: 14, fontWeight: 500, color: "#22c55e" }}>{feedback}</span>
       )}
     </form>
   );
