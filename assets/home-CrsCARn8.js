@@ -1,0 +1,1 @@
+import{w as o}from"./with-props-D2bi8E8X.js";import{o as r}from"./chunk-D4RADZKF--V6p8_Oh.js";const m=o(function(){return r.jsx("div",{style:{color:"red"},children:"HELLO HOME"})});export{m as default};
