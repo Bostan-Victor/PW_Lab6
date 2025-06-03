@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import type { Bet, BetType, BetOutcome } from "../types/Bet";
 import { useAppState } from "../context/AppStateContext";
-import { put } from "../utils/db";
 import { useNavigate } from "react-router";
 
 const betTypes: BetType[] = ["Winner", "Total", "Handicap", "Other"];
@@ -12,7 +11,7 @@ function generateId() {
 }
 
 export default function AddBetForm() {
-  const { dispatch, state } = useAppState();
+  const { addBet, state } = useAppState();
   const navigate = useNavigate();
   const [form, setForm] = useState<Omit<Bet, "id" | "payout" | "profit">>({
     date: new Date().toISOString().slice(0, 16),
@@ -63,8 +62,7 @@ export default function AddBetForm() {
         profit,
       };
 
-      dispatch({ type: "ADD_BET", bet: newBet });
-      await put("bets", newBet);
+      await addBet(newBet);
       setFeedback({ type: "success", message: "Bet added successfully!" });
       setTimeout(() => navigate("/"), 800);
     } catch (err) {

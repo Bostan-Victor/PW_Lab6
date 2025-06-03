@@ -1,14 +1,13 @@
 import React, { useState, useEffect } from "react";
 import type { Bet, BetType, BetOutcome } from "../types/Bet";
 import { useAppState } from "../context/AppStateContext";
-import { put } from "../utils/db";
 import { useParams, useNavigate } from "react-router";
 
 const betTypes: BetType[] = ["Winner", "Total", "Handicap", "Other"];
 const outcomes: BetOutcome[] = ["Pending", "Won", "Lost", "Draw"];
 
 export default function EditBetForm() {
-  const { state, dispatch } = useAppState();
+  const { state, updateBet } = useAppState();
   const params = useParams();
   const navigate = useNavigate();
   const betId = params.id as string;
@@ -78,11 +77,7 @@ export default function EditBetForm() {
         profit,
       };
 
-      dispatch({
-        type: "SET_BETS",
-        bets: state.bets.map((b) => (b.id === bet.id ? updatedBet : b)),
-      });
-      await put("bets", updatedBet);
+      await updateBet(updatedBet);
       setFeedback({ type: "success", message: "Bet updated successfully!" });
       setTimeout(() => navigate("/"), 800);
     } catch (err) {

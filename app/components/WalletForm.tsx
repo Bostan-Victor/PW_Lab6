@@ -1,13 +1,18 @@
 import React, { useState } from "react";
 import { useAppState } from "../context/AppStateContext";
+import type { WalletTransaction } from "../types/WalletTransaction";
+
+function generateId() {
+  return Math.random().toString(36).substring(2, 10);
+}
 
 export default function WalletForm() {
-  const { dispatch, state } = useAppState();
+  const { addTransaction, state } = useAppState();
   const [amount, setAmount] = useState("");
   const [type, setType] = useState<"deposit" | "withdrawal">("deposit");
   const [feedback, setFeedback] = useState<string | null>(null);
 
-  function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     const num = parseFloat(amount);
     if (isNaN(num) || num <= 0) {
@@ -18,7 +23,13 @@ export default function WalletForm() {
       setFeedback("Insufficient funds.");
       return;
     }
-    dispatch({ type: type === "deposit" ? "DEPOSIT" : "WITHDRAW", amount: num });
+    const tx: WalletTransaction = {
+      id: generateId(),
+      type,
+      amount: num,
+      date: new Date().toISOString(),
+    };
+    await addTransaction(tx);
     setFeedback(type === "deposit" ? "Deposit successful!" : "Withdrawal successful!");
     setAmount("");
     setTimeout(() => setFeedback(null), 1200);

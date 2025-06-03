@@ -1,13 +1,12 @@
 import { useAppState } from "../context/AppStateContext";
 import { Link } from "react-router";
-import { deleteById } from "../utils/db";
 import React, { useState } from "react";
 
 const outcomeOptions = ["All", "Won", "Lost", "Draw", "Pending"];
 const typeOptions = ["All", "Winner", "Total", "Handicap", "Other"];
 
 export default function BetList() {
-  const { state, dispatch } = useAppState();
+  const { state, deleteBet } = useAppState();
   const [feedback, setFeedback] = useState<string | null>(null);
 
   const [outcomeFilter, setOutcomeFilter] = useState("All");
@@ -17,8 +16,7 @@ export default function BetList() {
 
   async function handleDelete(id: string) {
     if (window.confirm("Are you sure you want to delete this bet?")) {
-      dispatch({ type: "DELETE_BET", id });
-      await deleteById("bets", id);
+      await deleteBet(id);
       setFeedback("Bet deleted.");
       setTimeout(() => setFeedback(null), 1200);
     }

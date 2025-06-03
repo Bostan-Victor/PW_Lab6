@@ -1,3 +1,14 @@
+:root {
+  --bg-main: #f8fafc;
+  --bg-card: #fff;
+  --text-main: #222;
+  --text-muted: #555;
+  --accent: #6366f1;
+  --gradient-from: #dbeafe;
+  --gradient-via: #f3e8ff;
+  --gradient-to: #fce7f3;
+}
+
 @import "tailwindcss";
 
 @theme {
